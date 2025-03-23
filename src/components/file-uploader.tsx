@@ -38,10 +38,10 @@ export function FileUploader({ onFileUpload }: FileUploaderProps) {
         <input {...getInputProps()} />
         <div className="text-center">
           <p className="text-lg font-medium">
-            {isDragActive ? 'Drop SQLite file here' : 'Drag & drop SQLite file here'}
+            {isDragActive ? 'Drop LocalStorage.db here' : 'Drag & drop LocalStorage.db here'}
           </p>
           <p className="text-muted-foreground mt-2">
-            Supported formats: .db, .sqlite, .sqlite3
+            View the previous step for instructions on how to obtain LocalStorage.db
           </p>
         </div>
       </div>

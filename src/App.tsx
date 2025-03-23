@@ -128,7 +128,6 @@ export default function App() {
   const steps = [
     {
       title: 'Instructions',
-      description: 'Learn how to obtain your DB file',
       content: (
         <StepContent
           step={0}
@@ -143,7 +142,6 @@ export default function App() {
     },
     {
       title: 'Upload',
-      description: 'Upload your DB file',
       content: (
         <StepContent
           step={1}
@@ -158,7 +156,6 @@ export default function App() {
     },
     {
       title: 'Configure',
-      description: 'Adjust your settings',
       content: (
         <StepContent
           step={2}
@@ -173,7 +170,6 @@ export default function App() {
     },
     {
       title: 'Preview',
-      description: 'Review your changes',
       content: (
         <StepContent
           step={3}
@@ -188,7 +184,6 @@ export default function App() {
     },
     {
       title: 'Download',
-      description: 'Get your modified file',
       content: (
         <StepContent
           step={4}

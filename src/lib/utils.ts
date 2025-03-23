@@ -44,7 +44,7 @@ export function validateStorageTable(db: any): string | null {
     if (!hasValue) return 'Invalid table schema: Missing "value" column';
     return null;
   } catch (error) {
-    return 'Error validating database';
+    return 'Error validating database. Is it actually a Wuwa DB?';
   }
 }
 

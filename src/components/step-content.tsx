@@ -32,9 +32,10 @@ export function StepContent({
     case 0: // Instructions
       return (
         <Card className="p-6">
-              <h2 className="text-xl font-semibold mb-4">How to Obtain Your LocalStorage.db File</h2>
-          <p className="text-muted-foreground">
-            Instructions on how to obtain the LocalStorage.db file will be provided here eventually.
+              {/* <h2 className="text-xl font-semibold mb-4">How to Obtain Your LocalStorage.db File</h2> */}
+          <p>
+            From your Wuthering Waves launcher's directory, open up <code>Wuthering Waves Game\Client\Saved\LocalStorage</code>. The 
+            LocalStorage.db file should be contained there. Drag and drop it below to begin editing the configuration.
           </p>
         </Card>
       );

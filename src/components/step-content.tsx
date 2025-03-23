@@ -34,7 +34,7 @@ export function StepContent({
         <Card className="p-6">
               <h2 className="text-xl font-semibold mb-4">How to Obtain Your LocalStorage.db File</h2>
           <p className="text-muted-foreground">
-            Instructions on how to obtain the LocalStorage.db file will be provided here.
+            Instructions on how to obtain the LocalStorage.db file will be provided here eventually.
           </p>
         </Card>
       );

@@ -18,7 +18,7 @@ export default function App() {
   const [modifiedEntries, setModifiedEntries] = useState<Record<string, string | number>>({});
   const [currentStep, setCurrentStep] = useState<number>(0);
 
-  const handleFileUpload = async (arrayBuffer: ArrayBuffer) => {
+  const handleFileLoad = async (arrayBuffer: ArrayBuffer) => {
     // Initialize the original database
     const { db: originalDatabase, error: dbError } = await initDB(arrayBuffer);
     if (dbError) return setError(dbError);
@@ -28,7 +28,7 @@ export default function App() {
 
     // Store the original database bytes
     setOriginalDbBytes(new Uint8Array(arrayBuffer));
-    setCurrentStep(2); // Move to the next step after successful upload
+    setCurrentStep(2); // Move to the next step after successful DB load
 
     const storageEntries = getStorageEntries(originalDatabase);
     setEntries(storageEntries.map(entry => ({
@@ -132,7 +132,7 @@ export default function App() {
       content: (
         <StepContent
           step={0}
-          onFileUpload={handleFileUpload}
+          onFileLoad={handleFileLoad}
           entries={entries}
           modifiedEntries={modifiedEntries}
           handleValueChange={handleValueChange}
@@ -142,11 +142,11 @@ export default function App() {
       ),
     },
     {
-      title: 'Upload',
+      title: 'Load DB',
       content: (
         <StepContent
           step={1}
-          onFileUpload={handleFileUpload}
+          onFileLoad={handleFileLoad}
           entries={entries}
           modifiedEntries={modifiedEntries}
           handleValueChange={handleValueChange}
@@ -160,7 +160,7 @@ export default function App() {
       content: (
         <StepContent
           step={2}
-          onFileUpload={handleFileUpload}
+          onFileLoad={handleFileLoad}
           entries={entries}
           modifiedEntries={modifiedEntries}
           handleValueChange={handleValueChange}
@@ -174,7 +174,7 @@ export default function App() {
       content: (
         <StepContent
           step={3}
-          onFileUpload={handleFileUpload}
+          onFileLoad={handleFileLoad}
           entries={entries}
           modifiedEntries={modifiedEntries}
           handleValueChange={handleValueChange}
@@ -188,7 +188,7 @@ export default function App() {
       content: (
         <StepContent
           step={4}
-          onFileUpload={handleFileUpload}
+          onFileLoad={handleFileLoad}
           entries={entries}
           modifiedEntries={modifiedEntries}
           handleValueChange={handleValueChange}

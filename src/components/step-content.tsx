@@ -1,4 +1,4 @@
-import { FileUploader } from '@/components/file-uploader';
+import { FileLoader } from '@/components/file-loader';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +8,7 @@ import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@/comp
 
 type StepContentProps = {
   step: number;
-  onFileUpload: (file: ArrayBuffer) => void;
+  onFileLoad: (file: ArrayBuffer) => void;
   entries: any[];
   modifiedEntries: Record<string, string | number>;
   handleValueChange: (key: string, value: string | number) => void;
@@ -18,7 +18,7 @@ type StepContentProps = {
 
 export function StepContent({
   step,
-  onFileUpload,
+  onFileLoad: onFileLoad,
   entries,
   modifiedEntries,
   handleValueChange,
@@ -32,16 +32,15 @@ export function StepContent({
     case 0: // Instructions
       return (
         <Card className="p-6">
-              {/* <h2 className="text-xl font-semibold mb-4">How to Obtain Your LocalStorage.db File</h2> */}
           <p>
-            From your Wuthering Waves launcher's directory, open up <code>Wuthering Waves Game\Client\Saved\LocalStorage</code>. The 
-            LocalStorage.db file should be contained there. Drag and drop it below to begin editing the configuration.
+            From your Wuthering Waves launcher's folder, navigate to <code>Wuthering Waves Game\Client\Saved\LocalStorage</code>.
+            The <code>LocalStorage.db</code> file should be contained there. Drag and drop it below to begin editing the configuration.
           </p>
         </Card>
       );
 
-    case 1: // File Upload
-      return <FileUploader onFileUpload={onFileUpload} isDbLoaded={entries.length > 0} />;
+    case 1: // File load
+      return <FileLoader onFileLoad={onFileLoad} isDbLoaded={entries.length > 0} />;
 
     case 2: // Configuration
       return (
@@ -230,13 +229,13 @@ export function StepContent({
         <Card className="p-6">
           <h2 className="text-xl font-semibold mb-4">Download Your Database</h2>
           <p className="text-muted-foreground mb-6">
-            You can download either the original database file or the modified version with your changes.
+            You can download the original database if you messed up and lost your backup.
           </p>
           <div className="flex gap-4 justify-center">
+            <Button onClick={handleModifiedDownload}>Download Modified</Button>
             <Button variant="outline" onClick={handleOriginalDownload}>
               Download Original
             </Button>
-            <Button onClick={handleModifiedDownload}>Download Modified</Button>
           </div>
         </Card>
       );

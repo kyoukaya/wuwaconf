@@ -11,7 +11,7 @@ type StepNavigatorProps = {
   steps: Step[];
   currentStep: number;
   isPreviousDisabled?: boolean;
-  originalDb?: any; // To check if database is uploaded
+  originalDb?: any; // To check if database is loaded
   onStepClick?: (stepIndex: number) => void; // Add handler for step clicks
 };
 
@@ -42,16 +42,16 @@ export function StepNavigator({
   const isStepAvailable = (index: number) => {
     // First step is always available
     if (index === 0) return true;
-    // Second step (upload) is always available
+    // Second step (load) is always available
     if (index === 1) return true;
-    // Subsequent steps require database to be uploaded
+    // Subsequent steps require database to be loaded
     return originalDb !== null;
   };
 
   return (
     <div >
       {/* Step indicator - horizontal bar at the top */}
-      <div className="sticky top-0 z-10 bg-background pt-4 pb-2 border-b">
+      <div className="sticky top-0 z-10 bg-background pt-2 pb-2 border-b px-4">
         <div className="flex justify-between mb-2">
           {steps.map((step, index) => (
             <div 
@@ -100,7 +100,7 @@ export function StepNavigator({
                   stepRefs.current[index] = el;
                 }
               }}
-              className={`scroll-mt-24 ${!isAvailable ? 'opacity-50 pointer-events-none' : ''}`}
+              className={`scroll-mt-24 ${!isAvailable ? 'opacity-25 pointer-events-none' : ''}`}
               id={`step-${index}`}
             >
               <Card className="p-6">

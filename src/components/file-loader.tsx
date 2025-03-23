@@ -3,23 +3,23 @@ import { useDropzone } from 'react-dropzone';
 import { Card } from '@/components/ui/card';
 import { CheckCircle } from 'lucide-react';
 
-type FileUploaderProps = {
-  onFileUpload: (file: ArrayBuffer) => void;
+type FileLoaderProps = {
+  onFileLoad: (file: ArrayBuffer) => void;
   isDbLoaded?: boolean;
 };
 
-export function FileUploader({ onFileUpload, isDbLoaded = false }: FileUploaderProps) {
-  const [isUploading, setIsUploading] = useState(false);
+export function FileLoader({ onFileLoad: onFileLoad, isDbLoaded = false }: FileLoaderProps) {
+  const [isLoading, setIsLoading] = useState(false);
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     if (!file) return;
 
-    setIsUploading(true);
+    setIsLoading(true);
     const arrayBuffer = await file.arrayBuffer();
-    onFileUpload(arrayBuffer);
-    setIsUploading(false);
-  }, [onFileUpload]);
+    onFileLoad(arrayBuffer);
+    setIsLoading(false);
+  }, [onFileLoad]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -42,7 +42,7 @@ export function FileUploader({ onFileUpload, isDbLoaded = false }: FileUploaderP
           {...getRootProps()}
           className={`flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-8 cursor-pointer
             ${isDragActive ? 'border-primary bg-primary/10' : 'border-muted-foreground/50'}
-            ${isUploading ? 'opacity-50 pointer-events-none' : ''}`}
+            ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
         >
           <input {...getInputProps()} />
           <div className="text-center">

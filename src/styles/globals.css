@@ -95,4 +95,15 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Add code block styles for dark mode */
+  .dark code {
+    background-color: hsl(var(--destructive) / 0.3);
+    border: 1px solid hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+  }
 }

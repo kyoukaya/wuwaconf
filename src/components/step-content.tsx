@@ -36,6 +36,10 @@ export function StepContent({
             From your Wuthering Waves launcher's folder, navigate to <code>Wuthering Waves Game\Client\Saved\LocalStorage</code>.
             The <code>LocalStorage.db</code> file should be contained there. Drag and drop it below to begin editing the configuration.
           </p>
+          <br></br>
+          <p>
+            Once done, just hit the Download Modified button at the bottom of the page and replace the file in your game's directory. If there's any issue, a backup copy of your original file is on this page until you refresh!
+          </p>
         </Card>
       );
 

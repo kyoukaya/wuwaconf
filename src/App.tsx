@@ -28,6 +28,7 @@ export default function App() {
 
     // Store the original database bytes
     setOriginalDbBytes(new Uint8Array(arrayBuffer));
+    setCurrentStep(2); // Move to the next step after successful upload
 
     const storageEntries = getStorageEntries(originalDatabase);
     setEntries(storageEntries.map(entry => ({
@@ -197,12 +198,6 @@ export default function App() {
       ),
     },
   ];
-
-  // Auto-advance to configuration step after successful file upload
-  if (originalDb && currentStep === 1) {
-    // Only auto-advance once when DB is loaded
-    setTimeout(() => setCurrentStep(2), 500);
-  }
 
   return (
     <div className="container mx-auto p-4 space-y-6">

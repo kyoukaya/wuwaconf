@@ -93,7 +93,7 @@ export default function App() {
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'LocalStorage_Original.db';
+    a.download = 'LocalStorage.db';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -118,7 +118,7 @@ export default function App() {
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'LocalStorage_Modified.db';
+    a.download = 'LocalStorage.db';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

@@ -30,9 +30,8 @@ jobs:
         run: bun run build
 
       - name: Upload built files for github pages
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
           path: ./dist
 
   deploy:

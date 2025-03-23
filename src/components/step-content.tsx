@@ -41,7 +41,7 @@ export function StepContent({
       );
 
     case 1: // File Upload
-      return <FileUploader onFileUpload={onFileUpload} />;
+      return <FileUploader onFileUpload={onFileUpload} isDbLoaded={entries.length > 0} />;
 
     case 2: // Configuration
       return (

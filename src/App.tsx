@@ -200,7 +200,7 @@ export default function App() {
   ];
 
   return (
-    <div className="container mx-auto p-4 space-y-6">
+    <div className="container mx-auto p-4 space-y-6 max-w-screen-lg">
       {error && (
         <Card className="p-4 bg-destructive/10 border-destructive">
           <p className="text-destructive">{error}</p>
@@ -216,7 +216,7 @@ export default function App() {
       
       <Card className="fixed bottom-0 left-0 w-full p-1 backdrop-blur bg-background/5 border-t">
         <div className="text-center text-sm text-muted-foreground">
-          wuwaconf
+          wuwaconf - <a href='https://github.com/kyoukaya/wuwaconf' className="hover:text-blue-700 underline">github</a>
         </div>
       </Card>
     </div>

@@ -35,9 +35,15 @@ jobs:
 
   deploy:
     name: Deploy
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      pages: write
+      id-token: write
+
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'

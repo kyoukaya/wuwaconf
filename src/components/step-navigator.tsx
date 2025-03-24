@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useRef } from 'react';
 import { Card } from '@/components/ui/card';
+import { Database } from 'sql.js';
 
 type Step = {
   title: string;
@@ -11,7 +12,7 @@ type StepNavigatorProps = {
   steps: Step[];
   currentStep: number;
   isPreviousDisabled?: boolean;
-  originalDb?: any; // To check if database is loaded
+  originalDb: Database | null; // To check if database is loaded
   onStepClick?: (stepIndex: number) => void; // Add handler for step clicks
 };
 

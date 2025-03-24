@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { initDB, validateStorageTable, getStorageEntries, updateKeyValue } from '@/lib/utils';
 import { StepNavigator } from '@/components/step-navigator';
 import { StepContent } from '@/components/step-content';
+import { Database } from 'sql.js';
 
 type ModifiedEntry = {
   key: string;
@@ -11,7 +12,7 @@ type ModifiedEntry = {
 };
 
 export default function App() {
-  const [originalDb, setOriginalDb] = useState<any>(null);
+  const [originalDb, setOriginalDb] = useState<Database | null>(null);
   const [originalDbBytes, setOriginalDbBytes] = useState<Uint8Array | null>(null);
   const [error, setError] = useState<string>('');
   const [entries, setEntries] = useState<ModifiedEntry[]>([]);
@@ -28,8 +29,7 @@ export default function App() {
 
     // Store the original database bytes
     setOriginalDbBytes(new Uint8Array(arrayBuffer));
-    setCurrentStep(2); // Move to the next step after successful DB load
-
+    setCurrentStep(currentStep + 1); // Move to the next step after successful DB load
     const storageEntries = getStorageEntries(originalDatabase);
     setEntries(storageEntries.map(entry => ({
       key: entry.key,
@@ -97,6 +97,7 @@ export default function App() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    // What
     URL.revokeObjectURL(url);
   };
 

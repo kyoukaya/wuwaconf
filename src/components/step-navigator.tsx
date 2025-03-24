@@ -41,14 +41,11 @@ export function StepNavigator({
 
   // Function to determine if a step is available
   const isStepAvailable = (index: number) => {
-    // First step is always available
-    if (index === 0) return true;
-    // Second step (load) is always available
-    if (index === 1) return true;
-    // Subsequent steps require database to be loaded
+    // The first two steps are always available
+    if (index < 2) return true;
+    // Subsequent steps require the database to be loaded
     return originalDb !== null;
   };
-
   return (
     <div >
       {/* Step indicator - horizontal bar at the top */}

@@ -237,7 +237,7 @@ export function StepContent({
       return (
         <Card className="p-6">
           <p className="text-muted-foreground mb-6">
-            You can download the original database if you messed up and lost your backup.
+            You can download the original database you dropped on this page if you lost your backup.
           </p>
           <div className="flex gap-4 justify-center">
             <Button onClick={handleModifiedDownload}>Download Modified</Button>

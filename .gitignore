@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+# There's already bun.lock!
+package-lock.json 
 
 # Editor directories and files
 .vscode/*

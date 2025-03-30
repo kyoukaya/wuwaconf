@@ -24,7 +24,7 @@ export function FileLoader({ onFileLoad: onFileLoad, isDbLoaded = false }: FileL
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'application/vnd.sqlite3': ['.db', '.sqlite', '.sqlite3'],
+      'application/vnd.sqlite3': ['.db'],
     },
     multiple: false,
   });

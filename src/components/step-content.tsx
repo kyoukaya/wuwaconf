@@ -1,15 +1,20 @@
 import { FileLoader } from '@/components/file-loader';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 
+export type ModifiedEntry = {
+  key: string;
+  originalValue: string | number;
+  currentValue: string | number;
+};
+
 type StepContentProps = {
   step: number;
   onFileLoad: (file: ArrayBuffer) => void;
-  entries: any[];
+  entries: ModifiedEntry[];
   modifiedEntries: Record<string, string | number>;
   handleValueChange: (key: string, value: string | number) => void;
   handleOriginalDownload: () => void;
@@ -32,6 +37,8 @@ export function StepContent({
     case 0: // Instructions
       return (
         <Card className="p-6">
+          <p className="text-lg font-bold">Now with version 2.2 FPS unlocking support.</p>
+          <br></br>
           <p>
             From your Wuthering Waves launcher's folder, navigate to <code>Wuthering Waves Game\Client\Saved\LocalStorage</code>.
             The <code>LocalStorage.db</code> file should be contained there. Drag and drop it below to begin editing the configuration.
@@ -53,38 +60,28 @@ export function StepContent({
             <Card className="p-4">
               <h2 className="text-lg font-semibold mb-4">Frame Rate Configuration</h2>
               <div className="space-y-2">
-                <Label>
-                  Custom Frame Rate
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>(?)</TooltipTrigger>
-                      <TooltipContent>
-                        <p>Any value between 30 and 120 is valid.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </Label>
-                <Input
-                  type="number"
-                  min="30"
-                  max="120"
-                  value={modifiedEntries['CustomFrameRate'] ?? frameRateEntry?.originalValue ?? ''}
-                  onChange={(e) => handleValueChange('CustomFrameRate', parseInt(e.target.value) || 0)}
-                  onBlur={(e) => {
-                    const value = parseInt(e.target.value);
-                    if (isNaN(value)) {
-                      // If value is NaN, reset to original value from DB
-                      handleValueChange('CustomFrameRate', frameRateEntry?.originalValue as number);
-                      return;
-                    }
-
-                    // Clamp value between min and max
-                    const clampedValue = Math.min(Math.max(value, 30), 120);
-                    if (clampedValue !== value) {
-                      handleValueChange('CustomFrameRate', clampedValue);
-                    }
-                  }}
-                />
+                <div className="flex items-center space-x-4">
+                  <Label className="flex-1">
+                    Enable 120 FPS Unlock
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>(?)</TooltipTrigger>
+                        <TooltipContent>
+                          <p>Enables a fixed 120 FPS setting with a trigger to prevent it from being changed.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </Label>
+                  <div className="flex items-center h-10">
+                    <input
+                      type="checkbox"
+                      id="fps-unlock"
+                      className="h-4 w-4"
+                      checked={(modifiedEntries['CustomFrameRate'] === 120)}
+                      onChange={(e) => handleValueChange('CustomFrameRate', e.target.checked ? 120 : frameRateEntry?.originalValue ?? 60)}
+                    />
+                  </div>
+                </div>
               </div>
             </Card>
 

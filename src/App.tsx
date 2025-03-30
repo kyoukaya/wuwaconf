@@ -1,15 +1,9 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
-import { initDB, validateStorageTable, getStorageEntries, updateKeyValue } from '@/lib/utils';
+import { initDB, validateStorageTable, getStorageEntries, updateKeyValue, createFpsTrigger, updateMenuDataAndPlayMenuInfo } from '@/lib/utils';
 import { StepNavigator } from '@/components/step-navigator';
-import { StepContent } from '@/components/step-content';
+import { StepContent, ModifiedEntry } from '@/components/step-content';
 import { Database } from 'sql.js';
-
-type ModifiedEntry = {
-  key: string;
-  originalValue: string | number;
-  currentValue: string | number;
-};
 
 export default function App() {
   const [originalDb, setOriginalDb] = useState<Database | null>(null);
@@ -21,9 +15,9 @@ export default function App() {
 
   const handleFileLoad = async (arrayBuffer: ArrayBuffer) => {
     // Initialize the original database
-    const { db: originalDatabase, error: dbError } = await initDB(arrayBuffer);
-    if (dbError) return setError(dbError);
-
+    const result = await initDB(arrayBuffer);
+    if (!result.ok) return setError(result.error);
+    const originalDatabase = result.value
     const validationError = validateStorageTable(originalDatabase);
     if (validationError) return setError(validationError);
 
@@ -78,7 +72,7 @@ export default function App() {
 
     // Update the entries state to reflect all changes
     setEntries(prev => prev.map(entry => {
-      if (changes.hasOwnProperty(entry.key)) {
+      if (Object.prototype.hasOwnProperty.call(changes, entry.key)) {
         return { ...entry, currentValue: changes[entry.key] };
       }
       return entry;
@@ -105,12 +99,27 @@ export default function App() {
     if (!originalDbBytes) return;
 
     // Create a fresh copy of the database for export
-    const { db: tempDb } = await initDB(originalDbBytes.buffer);
+    const result = await initDB(originalDbBytes.buffer);
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    const tempDb = result.value;
 
     // Apply all modifications to the temporary database
     Object.entries(modifiedEntries).forEach(([key, value]) => {
       updateKeyValue(tempDb, key, value);
     });
+
+    // Check if 120 FPS is enabled
+    const isFpsUnlockEnabled = modifiedEntries['CustomFrameRate'] === 120;
+    if (isFpsUnlockEnabled) {
+      // Create the trigger to prevent CustomFrameRate from being changed
+      createFpsTrigger(tempDb, 120);
+      
+      // Update MenuData and PlayMenuInfo with optimized settings for 120 FPS
+      updateMenuDataAndPlayMenuInfo(tempDb);
+    }
 
     // Export the modified database
     const data = tempDb.export();

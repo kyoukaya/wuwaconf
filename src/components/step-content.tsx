@@ -37,7 +37,11 @@ export function StepContent({
     case 0: // Instructions
       return (
         <Card className="p-6">
-          <p className="text-lg font-bold">Now with version 2.2 FPS unlocking support.</p>
+          <p className="text-lg font-bold">Now with version 2.2 FPS unlocking support!</p>
+          <br></br>
+          <p>
+            Thanks for trying out wuwaconf, a simple DB config editor for Wuthering Waves inspired by <a href='https://github.com/WakuWakuPadoru/WuWa_Simple_FPSUnlocker' target='_blank'>WakuWakuPadoru's FPS unlocker</a> and with the help of <a href='https://www.youtube.com/watch?v=suPQqPIG0eY'>eto gg's YouTube video</a>.
+         </p>
           <br></br>
           <p>
             From your Wuthering Waves launcher's folder, navigate to <code>Wuthering Waves Game\Client\Saved\LocalStorage</code>.
@@ -46,6 +50,10 @@ export function StepContent({
           <br></br>
           <p>
             Once done, just hit the Download Modified button at the bottom of the page and replace the file in your game's directory. If there's any issue, a backup copy of your original file is on this page until you refresh!
+          </p>
+          <br></br>
+          <p>
+            For Ray Tracing unlocking you will still need to update the game's .ini file by yourself at this point. See <a href='https://www.reddit.com/r/WutheringWaves/comments/1iokdne/ray_tracing_on_an_amd_gpu/mck6tdb/' target="_blank">this reddit post</a> for more info.
           </p>
         </Card>
       );
@@ -228,7 +236,6 @@ export function StepContent({
     case 4: // Download options
       return (
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4">Download Your Database</h2>
           <p className="text-muted-foreground mb-6">
             You can download the original database if you messed up and lost your backup.
           </p>

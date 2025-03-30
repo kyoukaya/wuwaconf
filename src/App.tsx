@@ -138,7 +138,7 @@ export default function App() {
   // Define steps for the wizard interface
   const steps = [
     {
-      title: 'Instructions',
+      title: 'Introduction',
       content: (
         <StepContent
           step={0}
@@ -226,7 +226,7 @@ export default function App() {
       
       <Card className="fixed bottom-0 left-0 w-full p-1 backdrop-blur bg-background/5 border-t">
         <div className="text-center text-sm text-muted-foreground">
-          wuwaconf - <a href='https://github.com/kyoukaya/wuwaconf' className="hover:text-blue-700 underline">github</a>
+          wuwaconf - <a href='https://github.com/kyoukaya/wuwaconf' target="_blank">github</a> - <a href='https://github.com/kyoukaya/wuwaconf/issues' target="_blank">issues</a>
         </div>
       </Card>
     </div>

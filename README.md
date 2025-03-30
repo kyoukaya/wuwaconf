@@ -1,6 +1,6 @@
 # wuwaconf
 
-A simple web Wuthering Waves FPS Unlocker. Drag and drop your LocalStorage.db file onto the page, tweak the configuration, and download the modified file all in your browser without any downloads.
+A simple web Wuthering Waves FPS Unlocker inspired by [WakuWakuPadoru's FPS unlocker](https://github.com/WakuWakuPadoru/WuWa_Simple_FPSUnlocker). Drag and drop your LocalStorage.db file onto the page, tweak the configuration, and download the modified file all in your browser without any downloads.
 
 ## Instructions
 

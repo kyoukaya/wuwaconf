@@ -1,10 +1,25 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import initSqlJs, { Database } from 'sql.js';
+import initSqlJs, { Database, SqlJsStatic } from 'sql.js';
+
+// Global SQL.js instance that will be initialized once when the module is loaded
+let SQL: SqlJsStatic | null = null;
+
+// Initialize SQL.js as soon as the module is imported
+const initSqlPromise = initSqlJs({ locateFile: file => `https://sql.js.org/dist/${file}` })
+  .then(sqlInstance => {
+    SQL = sqlInstance;
+    return sqlInstance;
+  })
+  .catch(error => {
+    console.error('Failed to initialize SQL.js:', error);
+    return null;
+  });
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
 export type Result<T, E = Error> =
   | { ok: true; value: T }
   | { ok: false; error: E };
@@ -18,7 +33,13 @@ type KeyValuePair = {
 
 export async function initDB(arrayBuffer: ArrayBuffer): Promise<DatabaseResult> {
   try {
-    const SQL = await initSqlJs({ locateFile: file => `https://sql.js.org/dist/${file}` });
+    if (!SQL) {
+      SQL = await initSqlPromise;
+      if (!SQL) {
+        return { ok: false, error: 'SQL.js initialization failed' };
+      }
+    }
+    
     const db = new SQL.Database(new Uint8Array(arrayBuffer));
     return { ok: true, value: db };
   } catch (error) {

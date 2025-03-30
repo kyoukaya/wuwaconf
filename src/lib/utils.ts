@@ -43,11 +43,11 @@ export async function initDB(arrayBuffer: ArrayBuffer): Promise<DatabaseResult> 
     const db = new SQL.Database(new Uint8Array(arrayBuffer));
     return { ok: true, value: db };
   } catch (error) {
-    return { ok: false, error: 'Failed to initialize database' };
+    return { ok: false, error: `Failed to initialize database ${error}` };
   }
 }
 
-export function validateStorageTable(db: any): string | null {
+export function validateStorageTable(db: Database): string | null {
   try {
     const result = db.exec(`
       SELECT name FROM sqlite_master
@@ -57,15 +57,15 @@ export function validateStorageTable(db: any): string | null {
     if (result.length === 0) return 'Missing LocalStorage table';
 
     const columns = db.exec('PRAGMA table_info(LocalStorage)');
-    const hasKey = columns[0].values.some((col: any[]) => col[1] === 'key');
-    const hasValue = columns[0].values.some((col: any[]) => col[1] === 'value');
+    const hasKey = columns[0].values.some((col: initSqlJs.SqlValue[]) => col[1] === 'key');
+    const hasValue = columns[0].values.some((col: initSqlJs.SqlValue[]) => col[1] === 'value');
 
     if (!hasKey && !hasValue) return 'Invalid table schema: Missing both "key" and "value" columns';
     if (!hasKey) return 'Invalid table schema: Missing "key" column';
     if (!hasValue) return 'Invalid table schema: Missing "value" column';
     return null;
   } catch (error) {
-    return 'Error validating database. Is it actually a Wuwa DB?';
+    return `Error validating database. Is it actually a Wuwa DB?\n${error}`;
   }
 }
 

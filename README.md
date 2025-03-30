@@ -9,7 +9,6 @@ A simple web Wuthering Waves FPS Unlocker inspired by [WakuWakuPadoru's FPS unlo
 3. Tweak the configuration.
 4. Click "Download Modified File" and replace the `LocalStorage.db` file in your game folder.
 
-
 ![image](README_preview.png)
 
 ## Why did you make this?
